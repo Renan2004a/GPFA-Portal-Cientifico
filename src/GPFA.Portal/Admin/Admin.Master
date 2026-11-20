@@ -1,0 +1,80 @@
+<%@ Master Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Admin.Master.cs" Inherits="GPFA.Portal.Admin.AdminMaster" %>
+<asp:Content ID="AdminMasterContent" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="admin-shell">
+        <aside class="admin-sidebar" id="adminSidebar" aria-label="Menu do painel">
+            <div class="admin-sidebar-head">
+                <div class="label">Painel de gestão</div>
+                <div class="name">GPFA</div>
+            </div>
+            <nav class="admin-nav">
+                <a class="<%= AdminNavClass("Default.aspx") %>" href="<%= ResolveUrl("~/Admin/Default.aspx") %>">
+                    <svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg> Visão geral
+                </a>
+                <a class="<%= AdminNavClass("Relatorios.aspx") %>" href="<%= ResolveUrl("~/Admin/Relatorios.aspx") %>">
+                    <svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg> Relatórios
+                </a>
+
+                <asp:PlaceHolder ID="phGestao" runat="server">
+                    <div class="group-label">Pesquisa</div>
+                    <a class="<%= AdminNavClass("Projetos.aspx") %>" href="<%= ResolveUrl("~/Admin/Projetos.aspx") %>">
+                        <svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg> Projetos
+                    </a>
+                    <a class="<%= AdminNavClass("Participacoes.aspx") %>" href="<%= ResolveUrl("~/Admin/Participacoes.aspx") %>">
+                        <svg class="icon" aria-hidden="true"><use href="#i-users"/></svg> Participações
+                    </a>
+                    <a class="<%= AdminNavClass("Publicacoes.aspx") %>" href="<%= ResolveUrl("~/Admin/Publicacoes.aspx") %>">
+                        <svg class="icon" aria-hidden="true"><use href="#i-book"/></svg> Publicações
+                    </a>
+                    <a class="<%= AdminNavClass("Destaques.aspx") %>" href="<%= ResolveUrl("~/Admin/Destaques.aspx") %>">
+                        <svg class="icon" aria-hidden="true"><use href="#i-award"/></svg> Destaques
+                    </a>
+                    <a class="<%= AdminNavClass("Financiamentos.aspx") %>" href="<%= ResolveUrl("~/Admin/Financiamentos.aspx") %>">
+                        <svg class="icon" aria-hidden="true"><use href="#i-coins"/></svg> Financiamentos
+                    </a>
+                </asp:PlaceHolder>
+
+                <asp:PlaceHolder ID="phCatalogo" runat="server">
+                    <div class="group-label">Pessoas e cadastros</div>
+                    <a class="<%= AdminNavClass("Pesquisadores.aspx") %>" href="<%= ResolveUrl("~/Admin/Pesquisadores.aspx") %>">
+                        <svg class="icon" aria-hidden="true"><use href="#i-user"/></svg> Pesquisadores
+                    </a>
+                    <a class="<%= AdminNavClass("Estudantes.aspx") %>" href="<%= ResolveUrl("~/Admin/Estudantes.aspx") %>">
+                        <svg class="icon" aria-hidden="true"><use href="#i-graduation"/></svg> Estudantes
+                    </a>
+                    <a class="<%= AdminNavClass("Orientacoes.aspx") %>" href="<%= ResolveUrl("~/Admin/Orientacoes.aspx") %>">
+                        <svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg> Orientações
+                    </a>
+                    <a class="<%= AdminNavClass("FontesFinanciadoras.aspx") %>" href="<%= ResolveUrl("~/Admin/FontesFinanciadoras.aspx") %>">
+                        <svg class="icon" aria-hidden="true"><use href="#i-award"/></svg> Fontes financiadoras
+                    </a>
+                    <a class="<%= AdminNavClass("Usuarios.aspx") %>" href="<%= ResolveUrl("~/Admin/Usuarios.aspx") %>">
+                        <svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg> Usuários e permissões
+                    </a>
+                </asp:PlaceHolder>
+            </nav>
+        </aside>
+
+        <div class="admin-main">
+            <div class="admin-topbar">
+                <div class="d-flex align-items-center gap-2">
+                    <button type="button" class="mobile-toggle d-lg-none" id="adminToggle" aria-controls="adminSidebar" aria-expanded="false" aria-label="Abrir menu do painel">
+                        <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+                    </button>
+                    <div>
+                        <div class="crumb">Painel GPFA · <asp:Literal ID="litPerfilTopo" runat="server" /></div>
+                        <h1><%: Page.Title %></h1>
+                    </div>
+                </div>
+                <div class="admin-topbar-actions">
+                    <asp:ContentPlaceHolder ID="AdminTopbarActions" runat="server" />
+                    <a class="btn-gpfa btn-outline-brand btn-sm" href="<%= ResolveUrl("~/Default.aspx") %>">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#i-arrow-up-right"/></svg> Ver portal
+                    </a>
+                </div>
+            </div>
+            <div class="admin-content">
+                <asp:ContentPlaceHolder ID="AdminContent" runat="server" />
+            </div>
+        </div>
+    </div>
+</asp:Content>
