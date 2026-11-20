@@ -1,0 +1,184 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="GPFA.Portal.SiteMaster" %>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a2233" />
+    <meta name="description" content="Portal de visibilidade científica e gestão de projetos do Grupo de Pesquisa sobre Formigas Atômicas (GPFA)." />
+    <title><%: Page.Title %> · GPFA</title>
+    <link rel="icon" href="<%= ResolveUrl("~/Content/img/favicon.svg") %>" type="image/svg+xml" />
+    <link rel="stylesheet" href="<%= ResolveUrl("~/Content/vendor/bootstrap/bootstrap.min.css") %>" />
+    <link rel="stylesheet" href="<%= ResolveUrl("~/Content/css/site.css") %>?v=20261120b" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+<body>
+    <form id="formMain" runat="server">
+        <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+
+        <!-- Sprite de ícones (inline, sem dependência externa) -->
+        <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+            <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+            <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+            <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></symbol>
+            <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+            <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+            <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.6-4 4.4-6 8-6s6.4 2 8 6"/></symbol>
+            <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M3 20c1.2-3.4 3.4-5 6-5s4.8 1.6 6 5"/><path d="M16 5.5a3.2 3.2 0 0 1 0 6.2M18 15c2 .6 3.4 2.2 4 4.6"/></symbol>
+            <symbol id="i-graduation" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5Z"/><path d="M6 11v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5M22 9v5"/></symbol>
+            <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.6 9.4A2 2 0 0 0 6.1 21h11.8a2 2 0 0 0 1.7-2.6L14 9V3"/><path d="M7.5 15h9"/></symbol>
+            <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v18H6.5A2.5 2.5 0 0 0 4 23Z"/><path d="M4 5.5v15M8 7h8M8 11h6"/></symbol>
+            <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="9" cy="6" rx="6" ry="3"/><path d="M3 6v5c0 1.7 2.7 3 6 3s6-1.3 6-3V6"/><path d="M3 11v5c0 1.7 2.7 3 6 3 1.4 0 2.7-.2 3.8-.6"/><ellipse cx="16.5" cy="15.5" rx="4.5" ry="2.5"/><path d="M12 15.5v4c0 1.4 2 2.5 4.5 2.5s4.5-1.1 4.5-2.5v-4"/></symbol>
+            <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+            <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+            <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></symbol>
+            <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+            <symbol id="i-login" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></symbol>
+            <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+            <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+            <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6"/></symbol>
+            <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+            <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></symbol>
+            <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+            <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></symbol>
+            <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.1-1.1"/></symbol>
+            <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></symbol>
+            <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+            <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7Z"/><path d="m2 12 10 5 10-5M2 17l10 5 10-5"/></symbol>
+            <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+            <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="m8.2 12.9-1.7 9 5.5-3 5.5 3-1.7-9"/></symbol>
+            <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+            <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+            <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 15v2"/></symbol>
+            <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+        </svg>
+
+        <div class="topbar">
+            <div class="container-gpfa topbar-inner">
+                <div class="topbar-meta">
+                    <span>Universidade Federal de Minas Gerais</span>
+                    <span>Grupo de Pesquisa sobre Formigas Atômicas</span>
+                </div>
+                <div class="topbar-meta">
+                    <a href="<%= ResolveUrl("~/Sobre.aspx") %>">O grupo</a>
+                    <a href="<%= ResolveUrl("~/Admin/Default.aspx") %>">Área restrita</a>
+                </div>
+            </div>
+        </div>
+
+        <header class="site-header">
+            <div class="container-gpfa header-inner">
+                <a class="brand" href="<%= ResolveUrl("~/Default.aspx") %>" aria-label="GPFA — página inicial">
+                    <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="brandBg" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#0e2f46"/><stop offset="1" stop-color="#0a2233"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="24" cy="24" r="23" fill="url(#brandBg)"/>
+                        <ellipse cx="24" cy="24" rx="19" ry="8.6" fill="none" stroke="#2ec4b6" stroke-width="1.1" opacity=".8" transform="rotate(-26 24 24)"/>
+                        <ellipse cx="24" cy="24" rx="19" ry="8.6" fill="none" stroke="#e9a23b" stroke-width="1" opacity=".55" transform="rotate(34 24 24)"/>
+                        <circle cx="24" cy="20.4" r="3" fill="#f2fbf9"/>
+                        <circle cx="24" cy="25.4" r="4.2" fill="#2ec4b6"/>
+                        <circle cx="24" cy="31.6" r="5.2" fill="#e9a23b"/>
+                        <path d="M20.6 19.4 17 15.6M27.4 19.4 31 15.6M19.6 25.8l-5.3 2.1M28.4 25.8l5.3 2.1M21.8 33l-4.2 5M26.2 33l4.2 5" stroke="#f2fbf9" stroke-width="1.15" stroke-linecap="round" opacity=".82"/>
+                    </svg>
+                    <span class="brand-copy">
+                        <span class="brand-name">GPFA</span>
+                        <span class="brand-sub">Formigas Atômicas · Ciência em rede</span>
+                    </span>
+                </a>
+
+                <nav class="site-nav" id="siteNav" aria-label="Navegação principal">
+                    <a class="<%= NavClass("Default.aspx") %>" href="<%= ResolveUrl("~/Default.aspx") %>">Início</a>
+                    <a class="<%= NavClass("Pesquisadores.aspx") %>" href="<%= ResolveUrl("~/Pesquisadores.aspx") %>">Pesquisadores</a>
+                    <a class="<%= NavClass("Estudantes.aspx") %>" href="<%= ResolveUrl("~/Estudantes.aspx") %>">Estudantes</a>
+                    <a class="<%= NavClass("Projetos.aspx") %>" href="<%= ResolveUrl("~/Projetos.aspx") %>">Projetos</a>
+                    <a class="<%= NavClass("Publicacoes.aspx") %>" href="<%= ResolveUrl("~/Publicacoes.aspx") %>">Publicações</a>
+                    <a class="<%= NavClass("Sobre.aspx") %>" href="<%= ResolveUrl("~/Sobre.aspx") %>">O grupo</a>
+                </nav>
+
+                <div class="nav-actions">
+                    <asp:Panel ID="pnlAutenticado" runat="server" Visible="false" CssClass="d-flex align-items-center gap-2">
+                        <a class="nav-user" href="<%= ResolveUrl("~/Admin/Default.aspx") %>" title="Abrir o painel administrativo">
+                            <span class="avatar" aria-hidden="true"><asp:Literal ID="litIniciaisUsuario" runat="server" /></span>
+                            <span class="d-none d-xl-inline">
+                                <asp:Literal ID="litUsuarioNome" runat="server" /><br />
+                                <span class="tiny muted"><asp:Literal ID="litUsuarioPerfil" runat="server" /></span>
+                            </span>
+                        </a>
+                        <asp:LinkButton ID="lnkSair" runat="server" CssClass="btn-gpfa btn-outline-brand btn-sm" OnClick="lnkSair_Click" CausesValidation="false">
+                            <svg class="icon icon-sm" aria-hidden="true"><use href="#i-logout"/></svg> Sair
+                        </asp:LinkButton>
+                    </asp:Panel>
+                    <asp:Panel ID="pnlAnonimo" runat="server" CssClass="d-flex align-items-center gap-2">
+                        <a class="btn-gpfa btn-outline-brand btn-sm" href="<%= ResolveUrl("~/Login.aspx") %>">
+                            <svg class="icon icon-sm" aria-hidden="true"><use href="#i-lock"/></svg> Área restrita
+                        </a>
+                    </asp:Panel>
+                    <button type="button" class="mobile-toggle" id="navToggle" aria-controls="siteNav" aria-expanded="false" aria-label="Abrir menu">
+                        <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <asp:Panel ID="pnlFlash" runat="server" Visible="false" CssClass="container-gpfa" style="padding-top:1.1rem">
+            <div id="divFlash" runat="server" class="alert-gpfa alert-info-gpfa" role="status" aria-live="polite">
+                <asp:Literal ID="litFlash" runat="server" />
+            </div>
+        </asp:Panel>
+
+        <main id="conteudo-principal">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </main>
+
+        <footer class="site-footer">
+            <div class="container-gpfa">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a class="brand" href="<%= ResolveUrl("~/Default.aspx") %>">
+                            <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+                                <circle cx="24" cy="24" r="23" fill="#0e2f46"/>
+                                <ellipse cx="24" cy="24" rx="19" ry="8.6" fill="none" stroke="#2ec4b6" stroke-width="1.1" opacity=".8" transform="rotate(-26 24 24)"/>
+                                <ellipse cx="24" cy="24" rx="19" ry="8.6" fill="none" stroke="#e9a23b" stroke-width="1" opacity=".55" transform="rotate(34 24 24)"/>
+                                <circle cx="24" cy="20.4" r="3" fill="#f2fbf9"/><circle cx="24" cy="25.4" r="4.2" fill="#2ec4b6"/><circle cx="24" cy="31.6" r="5.2" fill="#e9a23b"/>
+                            </svg>
+                            <span class="brand-copy"><span class="brand-name">GPFA</span>
+                            <span class="brand-sub">Formigas Atômicas</span></span>
+                        </a>
+                        <p>Ciência de fronteira em materiais quânticos, nanofotônica, simulação computacional e sensores ambientais — conectando pessoas, projetos e impacto público.</p>
+                    </div>
+                    <div class="footer-col">
+                        <h2 class="footer-col-title">Navegar</h2>
+                        <a href="<%= ResolveUrl("~/Pesquisadores.aspx") %>">Pesquisadores</a>
+                        <a href="<%= ResolveUrl("~/Estudantes.aspx") %>">Estudantes</a>
+                        <a href="<%= ResolveUrl("~/Projetos.aspx") %>">Projetos</a>
+                        <a href="<%= ResolveUrl("~/Publicacoes.aspx") %>">Publicações</a>
+                    </div>
+                    <div class="footer-col">
+                        <h2 class="footer-col-title">Institucional</h2>
+                        <a href="<%= ResolveUrl("~/Sobre.aspx") %>">Sobre o grupo</a>
+                        <a href="<%= ResolveUrl("~/Sobre.aspx#linhas") %>">Linhas de pesquisa</a>
+                        <a href="<%= ResolveUrl("~/Sobre.aspx#contato") %>">Contato</a>
+                        <a href="<%= ResolveUrl("~/Admin/Default.aspx") %>">Painel administrativo</a>
+                    </div>
+                    <div class="footer-col">
+                        <h2 class="footer-col-title">Contato</h2>
+                        <p class="small" style="color:#9fb5c2">Departamento de Física<br />Universidade Federal de Minas Gerais<br />Belo Horizonte · MG</p>
+                        <a href="mailto:contato@gpfa.ufmg.br">contato@gpfa.ufmg.br</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <span>© <%= DateTime.Now.Year %> GPFA · Portal de Visibilidade Científica e Gestão de Projetos</span>
+                    <span>Desenvolvido com ASP.NET Web Forms · SQL Server · <a href="<%= ResolveUrl("~/Sobre.aspx") %>">Projeto acadêmico</a></span>
+                </div>
+            </div>
+        </footer>
+
+        <script src="<%= ResolveUrl("~/Content/vendor/bootstrap/bootstrap.bundle.min.js") %>"></script>
+        <script src="<%= ResolveUrl("~/Content/js/site.js") %>?v=20261120b"></script>
+        <asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
+    </form>
+</body>
+</html>
