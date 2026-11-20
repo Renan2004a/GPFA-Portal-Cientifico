@@ -1,4 +1,4 @@
-# 13 — Manual de instalação
+﻿# 13 — Manual de instalação
 
 ## 1. Pré-requisitos
 
@@ -27,7 +27,7 @@ git --version
 ## 2. Obter o código
 
 ```powershell
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/Renan2004a/GPFA-Portal-Cientifico.git
 cd GPFA-Portal-Cientifico
 ```
 
@@ -168,7 +168,7 @@ Remove-Item .\src\GPFA.Portal\obj -Recurse -Force -ErrorAction SilentlyContinue
 ### Clonar e configurar
 
 ```powershell
-git clone <URL>
+git clone https://github.com/Renan2004a/GPFA-Portal-Cientifico.git
 cd GPFA-Portal-Cientifico
 git config user.name "Seu Nome"
 git config user.email "seu@email"

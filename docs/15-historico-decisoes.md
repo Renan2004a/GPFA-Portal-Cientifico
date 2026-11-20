@@ -122,7 +122,7 @@ Registro no formato ADR simplificado: contexto, decisão, alternativas e consequ
 - **Repositório:** https://github.com/Renan2004a/GPFA-Portal-Cientifico
 - **Convites:** enviados para `vanessarodrigues5307` e `Vanusa-Oliveira` com permissão **write** em 20/11/2026. O GitHub registra as solicitações como **pendentes** até que cada colaboradora aceite. Não se declara aceite sem confirmação da plataforma.
 - **Autoria:** os commits desta máquina são de Renan Alves Tavares (única conta autenticada no ambiente). Não foram fabricados commits em nome das colegas; a contribuição delas ocorrerá via branches/PRs após aceite.
-- **Status:** repositório criado e publicado; branches `main`, `develop` e `feature/*` enviadas; PR #13 (`develop` → `main`) revisado e integrado. As colaboradoras ainda precisam aceitar os convites e registrar suas contribuições.
+- **Status:** repositório criado e publicado; branches `main`, `develop` e `feature/*` enviadas; PRs #13 e #15 (`develop`/`fix` → `main`) revisados e integrados. As colaboradoras ainda precisam aceitar os convites e registrar suas contribuições.
 
 ## D-16 — Priorização das entregas
 
