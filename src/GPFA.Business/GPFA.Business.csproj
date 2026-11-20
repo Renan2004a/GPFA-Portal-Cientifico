@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net481</TargetFramework>
+    <RootNamespace>GPFA.Business</RootNamespace>
+    <AssemblyName>GPFA.Business</AssemblyName>
+    <LangVersion>7.3</LangVersion>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GPFA.Models\GPFA.Models.csproj" />
+    <ProjectReference Include="..\GPFA.Data\GPFA.Data.csproj" />
+  </ItemGroup>
+</Project>
