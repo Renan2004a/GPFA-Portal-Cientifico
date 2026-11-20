@@ -1,4 +1,4 @@
-# GPFA — Portal de Visibilidade Científica e Gestão de Projetos
+﻿# GPFA — Portal de Visibilidade Científica e Gestão de Projetos
 
 Portal institucional e sistema de gestão do **Grupo de Pesquisa sobre Formigas Atômicas (GPFA)**, desenvolvido como projeto final da disciplina de Programação Web.
 
@@ -179,7 +179,7 @@ GPFA-Portal-Cientifico/
 ### 1. Clonar
 
 ```powershell
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/Renan2004a/GPFA-Portal-Cientifico.git
 cd GPFA-Portal-Cientifico
 ```
 
