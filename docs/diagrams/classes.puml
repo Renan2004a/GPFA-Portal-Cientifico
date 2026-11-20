@@ -1,0 +1,249 @@
+@startuml GPFA_Classes
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+hide empty members
+
+package "GPFA.Models (Domínio e DTOs)" #F7F6F2 {
+
+  abstract class Pessoa {
+    - int pessoaId
+    - string nomeCompleto
+    - string email
+    - char tipoPessoa
+    - string fotoUrl
+    - string formacaoAcademica
+    - string areaAtuacao
+    - string miniBiografia
+    - string googleScholarUrl
+    - string orcidUrl
+    - string lattesUrl
+    - bool ativo
+    + string NomeExibicao
+    + string Iniciais
+    + ValidarDadosBasicos()
+  }
+
+  class Pesquisador {
+    - string titulacao
+    - string instituicao
+    - string departamento
+    - string linhaPesquisa
+    - date dataCadastro
+    + string AssinaturaInstitucional
+  }
+
+  class Estudante {
+    - string nivelAcademico
+    - string curso
+    - string situacao
+    - date dataIngresso
+    - date dataConclusao
+    - string coorientadoresExternos
+    + bool EstaAtivo
+    + string DescricaoVinculo
+  }
+
+  class Projeto {
+    - int projetoId
+    - string titulo
+    - string sigla
+    - string resumo
+    - string descricao
+    - string linhaPesquisa
+    - string situacao
+    - date dataInicio
+    - date dataFimPrevista
+    - date dataFim
+    - int coordenadorId
+    - bool destaque
+    + bool EmAndamento
+    + string PeriodoFormatado
+    + Validar()
+  }
+
+  class Orientacao {
+    - int orientacaoId
+    - int estudanteId
+    - int orientadorId
+    - bool principal
+    - date dataInicio
+    - date dataFim
+    - string observacao
+    + bool Ativa
+    + string Vinculo
+    + Validar()
+  }
+
+  class ParticipacaoProjeto {
+    - int participacaoId
+    - int projetoId
+    - int pesquisadorId
+    - string papel
+    - date dataEntrada
+    - date dataSaida
+    + bool Ativa
+  }
+
+  class EstudanteProjeto {
+    - int estudanteProjetoId
+    - int estudanteId
+    - int projetoId
+    - date dataEntrada
+    - date dataSaida
+    - string tipoVinculo
+    + bool Ativo
+  }
+
+  class Publicacao {
+    - int publicacaoId
+    - string titulo
+    - string veiculo
+    - int ano
+    - string tipo
+    - string doi
+    - string linkAcesso
+    - int projetoId
+    + string UrlAcesso
+    + Validar()
+  }
+
+  class PublicacaoAutor {
+    - int publicacaoId
+    - int pesquisadorId
+    - int ordemAutoria
+    + bool PrimeiroAutor
+  }
+
+  class DestaquePublicacao {
+    - int destaqueId
+    - int pesquisadorId
+    - int publicacaoId
+    - int ordem
+    - datetime criadoEm
+  }
+
+  class FonteFinanciadora {
+    - int fonteId
+    - string nome
+    - string sigla
+    - string tipo
+    - string siteUrl
+    + string NomeExibicao
+    + Validar()
+  }
+
+  class Financiamento {
+    - int financiamentoId
+    - int projetoId
+    - int fonteId
+    - string descricao
+    - string numeroProcesso
+    - decimal valor
+    - date dataInicio
+    - date dataFim
+    - string moeda
+    + string ValorFormatado
+    + bool Vigente
+    + Validar()
+  }
+
+  class Usuario {
+    - int usuarioId
+    - string login
+    - string nomeCompleto
+    - string email
+    - string senhaHash
+    - int perfilId
+    - int pesquisadorId
+    - bool ativo
+    + bool EhAdministrador
+    + bool EhCoordenador
+    + bool PodeGerenciarProjetos
+  }
+
+  class PerfilAcesso {
+    - int perfilId
+    - string nome
+    - string descricao
+  }
+
+  class LogAuditoria {
+    - long logId
+    - int usuarioId
+    - string acao
+    - string entidade
+    - int entidadeId
+    - string detalhe
+    - datetime dataHora
+  }
+
+  class UsuarioSessao {
+    - int usuarioId
+    - string login
+    - string nomeCompleto
+    - int perfilId
+    - int pesquisadorId
+    + bool PodeGerenciarProjetos
+    + string PrimeiroNome
+  }
+}
+
+package "GPFA.Business (Serviços)" #EAF4F2 {
+  class PesquisadorService
+  class EstudanteService
+  class ProjetoService
+  class PublicacaoService
+  class FinanciamentoService
+  class AuthService
+  class UsuarioService
+  class RelatorioService
+}
+
+package "GPFA.Data (Repositórios)" #EEF3F6 {
+  class PessoaRepository
+  class PesquisadorRepository
+  class EstudanteRepository
+  class OrientacaoRepository
+  class ProjetoRepository
+  class PublicacaoRepository
+  class FinanciamentoRepository
+  class UsuarioRepository
+  class RelatorioRepository
+  class SqlHelper
+}
+
+Pessoa <|-- Pesquisador
+Pessoa <|-- Estudante
+
+Pesquisador "1" --> "0..*" Projeto : coordena >
+Pesquisador "1" --> "0..*" ParticipacaoProjeto : participa >
+Pesquisador "1" --> "0..*" Orientacao : orienta >
+Pesquisador "1" --> "0..*" PublicacaoAutor : assina >
+Pesquisador "1" --> "0..*" DestaquePublicacao : destaca >
+Pesquisador "0..1" <-- "0..1" Usuario : acesso
+
+Estudante "1" --> "0..*" Orientacao : possui >
+Estudante "1" --> "0..*" EstudanteProjeto : vincula-se >
+
+Projeto "1" --> "0..*" ParticipacaoProjeto : reúne >
+Projeto "1" --> "0..*" EstudanteProjeto : acolhe >
+Projeto "1" --> "0..*" Financiamento : recebe >
+Projeto "1" --> "0..*" Publicacao : origina >
+
+Publicacao "1" *-- "1..*" PublicacaoAutor : composição
+Publicacao "1" --> "0..*" DestaquePublicacao : pode ser destacada
+FonteFinanciadora "1" --> "0..*" Financiamento : financia
+
+PerfilAcesso "1" --> "0..*" Usuario : autoriza
+Usuario "1" --> "0..*" LogAuditoria : gera
+Usuario ..> UsuarioSessao : projeta
+
+PesquisadorService ..> PesquisadorRepository
+EstudanteService ..> EstudanteRepository
+EstudanteService ..> OrientacaoRepository
+ProjetoService ..> ProjetoRepository
+PublicacaoService ..> PublicacaoRepository
+FinanciamentoService ..> FinanciamentoRepository
+AuthService ..> UsuarioRepository
+RelatorioService ..> RelatorioRepository
+@enduml

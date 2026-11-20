@@ -1,0 +1,43 @@
+flowchart TB
+    subgraph Cliente["Navegador"]
+        B["Visitante / Administrador / Coordenador / Pesquisador"]
+    end
+
+    subgraph IIS["IIS Express / ASP.NET Web Forms"]
+        M["Site.Master + Admin.Master<br/>layout, navegação e flash"]
+        P["Páginas .aspx<br/>controles de servidor, validators, GridView, Repeater"]
+        BP["BasePage / AdminPageBase<br/>sessão, autorização, ViewStateUserKey, erros"]
+        P --> BP
+        M --> P
+    end
+
+    subgraph Business["GPFA.Business"]
+        S["Serviços<br/>Pesquisador, Estudante, Projeto, Publicação, Financiamento, Auth, Relatório"]
+        V["Validações e regras RN01–RN07"]
+        S --> V
+    end
+
+    subgraph Data["GPFA.Data"]
+        R["Repositórios + SqlHelper<br/>consultas parametrizadas, transações"]
+        T["SqlErrorTranslator<br/>FK, UNIQUE, CHECK, triggers"]
+        R --> T
+    end
+
+    subgraph DB["SQL Server LocalDB"]
+        TB["Tabelas + PK/FK/CHECK/UNIQUE/índices filtrados"]
+        TR["Triggers de integridade"]
+        VW["Views de relatório e totais"]
+    end
+
+    B -->|HTTP| IIS
+    BP -->|chama serviços| S
+    S -->|usa repositórios| R
+    R -->|ADO.NET| TB
+    TB --- TR
+    TB --- VW
+
+    subgraph Tests["GPFA.Tests"]
+        X["83 testes de integração"]
+    end
+    X -->|schema real| DB
+    X -->|serviços| Business
