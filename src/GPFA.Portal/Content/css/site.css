@@ -1170,3 +1170,6 @@ textarea.form-control { min-height: 100px; resize: vertical; }
 .proj-check-list { display: flex; flex-wrap: wrap; gap: .45rem 1.5rem; }
 .proj-check-list label { font-size: .84rem; color: var(--ink); }
 .proj-check-list input[type="checkbox"] { margin-right: .4rem; accent-color: var(--brand-700); }
+
+.admin-grid-even { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 1100px) { .admin-grid-even { grid-template-columns: 1fr; } }

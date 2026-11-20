@@ -77,6 +77,14 @@ Centralizar, organizar, gerenciar e divulgar as informações científicas e adm
 
 ---
 
+
+## Capturas
+
+| Portal público | Painel administrativo |
+|---|---|
+| ![Página inicial do portal](docs/images/home.png) | ![Dashboard administrativo](docs/images/admin-dashboard.png) |
+
+Mais telas em [`docs/images`](docs/images): perfil de pesquisador, projetos, publicações, relatórios, financiamentos e versões mobile.
 ## Tecnologias
 
 | Camada | Tecnologia |

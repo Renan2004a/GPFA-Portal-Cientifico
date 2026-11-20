@@ -1,4 +1,4 @@
-<%@ Page Title="Relatórios" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Relatorios.aspx.cs" Inherits="GPFA.Portal.Admin.RelatoriosAdmin" %>
+﻿<%@ Page Title="Relatórios" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Relatorios.aspx.cs" Inherits="GPFA.Portal.Admin.RelatoriosAdmin" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="AdminTopbarActions" runat="server">
     <button type="button" class="btn-gpfa btn-outline-brand btn-sm" onclick="window.print()">
@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div class="admin-grid">
+    <div class="admin-grid admin-grid-even">
         <div class="panel-card">
             <div class="panel-card-head"><h3>Projetos por situação</h3></div>
             <asp:Repeater ID="rptSituacao" runat="server">
@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <div class="admin-grid mt-3">
+    <div class="admin-grid admin-grid-even mt-3">
         <div class="panel-card">
             <div class="panel-card-head">
                 <h3>Financiamentos por projeto</h3>
@@ -80,7 +80,7 @@
                                 <tr>
                                     <td><%#: Eval("Rotulo") %></td>
                                     <td class="text-center"><%#: Eval("Quantidade") %></td>
-                                    <td style="text-align:right;font-weight:600"><%#: Eval("ValorFormatado") %></td>
+                                    <td style="text-align:right;font-weight:600;white-space:nowrap"><%#: Eval("ValorFormatado") %></td>
                                 </tr>
                             </ItemTemplate>
                         </asp:Repeater>
@@ -96,7 +96,7 @@
                     <div class="bar-row" style="grid-template-columns:100px 1fr 80px">
                         <span><%#: Eval("Rotulo") %></span>
                         <div class="bar-track"><div class="bar-fill" style='width:<%# Eval("Percentual", "{0:0.#}") %>%'></div></div>
-                        <span class="bar-value" style="font-size:.7rem"><%#: Eval("ValorFormatado") %></span>
+                        <span class="bar-value" style="font-size:.7rem;white-space:nowrap"><%#: Eval("ValorFormatado") %></span>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    <div class="admin-grid mt-3">
+    <div class="admin-grid admin-grid-even mt-3">
         <div class="panel-card">
             <div class="panel-card-head"><h3>Publicações por pesquisador</h3></div>
             <div class="table-responsive">
@@ -158,7 +158,7 @@
                             <tr>
                                 <td><%#: Eval("Rotulo") %></td>
                                 <td class="text-center"><%#: Eval("Quantidade") %></td>
-                                <td style="text-align:right;font-weight:600"><%#: Eval("ValorFormatado") %></td>
+                                <td style="text-align:right;font-weight:600;white-space:nowrap"><%#: Eval("ValorFormatado") %></td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>

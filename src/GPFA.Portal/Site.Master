@@ -9,7 +9,7 @@
     <title><%: Page.Title %> · GPFA</title>
     <link rel="icon" href="<%= ResolveUrl("~/Content/img/favicon.svg") %>" type="image/svg+xml" />
     <link rel="stylesheet" href="<%= ResolveUrl("~/Content/vendor/bootstrap/bootstrap.min.css") %>" />
-    <link rel="stylesheet" href="<%= ResolveUrl("~/Content/css/site.css") %>?v=20261120b" />
+    <link rel="stylesheet" href="<%= ResolveUrl("~/Content/css/site.css") %>?v=20261120c" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>
@@ -177,7 +177,7 @@
         </footer>
 
         <script src="<%= ResolveUrl("~/Content/vendor/bootstrap/bootstrap.bundle.min.js") %>"></script>
-        <script src="<%= ResolveUrl("~/Content/js/site.js") %>?v=20261120b"></script>
+        <script src="<%= ResolveUrl("~/Content/js/site.js") %>?v=20261120c"></script>
         <asp:ContentPlaceHolder ID="ScriptsContent" runat="server" />
     </form>
 </body>
