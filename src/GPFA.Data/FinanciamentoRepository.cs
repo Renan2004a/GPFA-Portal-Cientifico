@@ -124,7 +124,8 @@ ORDER BY Valor DESC", r => new RelatorioContagem
         public List<RelatorioContagem> ListarTotalPorFonte()
         {
             return SqlHelper.Query(@"
-SELECT Nome AS Rotulo, QtdProjetos AS Quantidade, TotalCaptado AS Valor
+SELECT CASE WHEN Sigla IS NULL OR Sigla = N'' THEN Nome ELSE Sigla END AS Rotulo,
+       QtdProjetos AS Quantidade, TotalCaptado AS Valor
 FROM dbo.vw_FinanciamentoPorFonte
 ORDER BY TotalCaptado DESC", r => new RelatorioContagem
             {
