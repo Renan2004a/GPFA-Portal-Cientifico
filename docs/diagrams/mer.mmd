@@ -1,0 +1,155 @@
+erDiagram
+    PERFIL_ACESSO ||--o{ USUARIO : autoriza
+    PESSOA ||--o| PESQUISADOR : especializa
+    PESSOA ||--o| ESTUDANTE : especializa
+    PESQUISADOR ||--o{ PROJETO : coordena
+    PESQUISADOR ||--o{ PARTICIPACAO_PROJETO : participa
+    PESQUISADOR ||--o{ ORIENTACAO : orienta
+    PESQUISADOR ||--o{ PUBLICACAO_AUTOR : assina
+    PESQUISADOR ||--o{ DESTAQUE_PUBLICACAO : destaca
+    ESTUDANTE ||--o{ ORIENTACAO : possui
+    ESTUDANTE ||--o{ ESTUDANTE_PROJETO : vincula
+    PROJETO ||--o{ PARTICIPACAO_PROJETO : reune
+    PROJETO ||--o{ ESTUDANTE_PROJETO : acolhe
+    PROJETO ||--o{ FINANCIAMENTO : recebe
+    PROJETO ||--o{ PUBLICACAO : origina
+    PUBLICACAO ||--|{ PUBLICACAO_AUTOR : compoe
+    PUBLICACAO ||--o{ DESTAQUE_PUBLICACAO : destaca
+    FONTE_FINANCIADORA ||--o{ FINANCIAMENTO : financia
+    USUARIO ||--o{ LOG_AUDITORIA : gera
+
+    PERFIL_ACESSO {
+        int PerfilId PK
+        nvarchar Nome UK
+        nvarchar Descricao
+    }
+    PESSOA {
+        int PessoaId PK
+        nvarchar NomeCompleto
+        nvarchar Email UK
+        char TipoPessoa
+        nvarchar FotoUrl
+        nvarchar FormacaoAcademica
+        nvarchar AreaAtuacao
+        nvarchar MiniBiografia
+        nvarchar GoogleScholarUrl
+        nvarchar OrcidUrl
+        nvarchar LattesUrl
+        bit Ativo
+    }
+    PESQUISADOR {
+        int PesquisadorId PK,FK
+        nvarchar Titulacao
+        nvarchar Instituicao
+        nvarchar Departamento
+        nvarchar LinhaPesquisa
+        date DataCadastro
+    }
+    ESTUDANTE {
+        int EstudanteId PK,FK
+        nvarchar NivelAcademico
+        nvarchar Curso
+        nvarchar Situacao
+        date DataIngresso
+        date DataConclusao
+        nvarchar CoorientadoresExternos
+    }
+    PROJETO {
+        int ProjetoId PK
+        nvarchar Titulo
+        nvarchar Sigla
+        nvarchar Resumo
+        nvarchar Descricao
+        nvarchar Situacao
+        date DataInicio
+        date DataFimPrevista
+        date DataFim
+        int CoordenadorId FK
+    }
+    PARTICIPACAO_PROJETO {
+        int ParticipacaoId PK
+        int ProjetoId FK
+        int PesquisadorId FK
+        nvarchar Papel
+        date DataEntrada
+        date DataSaida
+    }
+    ESTUDANTE_PROJETO {
+        int EstudanteProjetoId PK
+        int EstudanteId FK
+        int ProjetoId FK
+        date DataEntrada
+        date DataSaida
+        nvarchar TipoVinculo
+    }
+    ORIENTACAO {
+        int OrientacaoId PK
+        int EstudanteId FK
+        int OrientadorId FK
+        bit Principal
+        date DataInicio
+        date DataFim
+        nvarchar Observacao
+    }
+    PUBLICACAO {
+        int PublicacaoId PK
+        nvarchar Titulo
+        nvarchar Veiculo
+        smallint Ano
+        nvarchar Tipo
+        nvarchar Doi
+        nvarchar LinkAcesso
+        int ProjetoId FK
+    }
+    PUBLICACAO_AUTOR {
+        int PublicacaoId PK,FK
+        int PesquisadorId PK,FK
+        tinyint OrdemAutoria
+    }
+    DESTAQUE_PUBLICACAO {
+        int DestaqueId PK
+        int PesquisadorId FK
+        int PublicacaoId FK
+        tinyint Ordem
+        datetime CriadoEm
+    }
+    FONTE_FINANCIADORA {
+        int FonteId PK
+        nvarchar Nome UK
+        nvarchar Sigla
+        nvarchar Tipo
+        nvarchar SiteUrl
+    }
+    FINANCIAMENTO {
+        int FinanciamentoId PK
+        int ProjetoId FK
+        int FonteId FK
+        nvarchar Descricao
+        nvarchar NumeroProcesso
+        decimal Valor
+        date DataInicio
+        date DataFim
+        char Moeda
+    }
+    USUARIO {
+        int UsuarioId PK
+        nvarchar Login UK
+        nvarchar NomeCompleto
+        nvarchar Email UK
+        nvarchar SenhaHash
+        int PerfilId FK
+        int PesquisadorId FK
+        bit Ativo
+        datetime UltimoAcesso
+        int TentativasFalhas
+        datetime BloqueadoAte
+    }
+    LOG_AUDITORIA {
+        bigint LogId PK
+        int UsuarioId FK
+        nvarchar Acao
+        nvarchar Entidade
+        int EntidadeId
+        nvarchar Detalhe
+        datetime DataHora
+    }
