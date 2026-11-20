@@ -1,0 +1,249 @@
+classDiagram
+    direction LR
+
+    class Pessoa {
+        <<abstract>>
+        +int PessoaId
+        +string NomeCompleto
+        +string Email
+        +char TipoPessoa
+        +string FotoUrl
+        +string FormacaoAcademica
+        +string AreaAtuacao
+        +string MiniBiografia
+        +string GoogleScholarUrl
+        +string OrcidUrl
+        +string LattesUrl
+        +bool Ativo
+        +string NomeExibicao
+        +string Iniciais
+        +ValidarDadosBasicos()
+    }
+
+    class Pesquisador {
+        +string Titulacao
+        +string Instituicao
+        +string Departamento
+        +string LinhaPesquisa
+        +DateTime DataCadastro
+        +string AssinaturaInstitucional
+    }
+
+    class Estudante {
+        +string NivelAcademico
+        +string Curso
+        +string Situacao
+        +DateTime DataIngresso
+        +DateTime DataConclusao
+        +string CoorientadoresExternos
+        +bool EstaAtivo
+        +string DescricaoVinculo
+    }
+
+    class Projeto {
+        +int ProjetoId
+        +string Titulo
+        +string Sigla
+        +string Resumo
+        +string Descricao
+        +string LinhaPesquisa
+        +string Situacao
+        +DateTime DataInicio
+        +DateTime DataFimPrevista
+        +DateTime DataFim
+        +int CoordenadorId
+        +bool Destaque
+        +bool EmAndamento
+        +string PeriodoFormatado
+        +Validar()
+    }
+
+    class ParticipacaoProjeto {
+        +int ParticipacaoId
+        +int ProjetoId
+        +int PesquisadorId
+        +string Papel
+        +DateTime DataEntrada
+        +DateTime DataSaida
+        +bool Ativa
+    }
+
+    class EstudanteProjeto {
+        +int EstudanteProjetoId
+        +int EstudanteId
+        +int ProjetoId
+        +DateTime DataEntrada
+        +DateTime DataSaida
+        +string TipoVinculo
+        +bool Ativo
+    }
+
+    class Orientacao {
+        +int OrientacaoId
+        +int EstudanteId
+        +int OrientadorId
+        +bool Principal
+        +DateTime DataInicio
+        +DateTime DataFim
+        +string Observacao
+        +bool Ativa
+        +string Vinculo
+        +Validar()
+    }
+
+    class Publicacao {
+        +int PublicacaoId
+        +string Titulo
+        +string Veiculo
+        +int Ano
+        +string Tipo
+        +string Doi
+        +string LinkAcesso
+        +int ProjetoId
+        +string UrlAcesso
+        +Validar()
+    }
+
+    class PublicacaoAutor {
+        +int PublicacaoId
+        +int PesquisadorId
+        +int OrdemAutoria
+        +bool PrimeiroAutor
+    }
+
+    class DestaquePublicacao {
+        +int DestaqueId
+        +int PesquisadorId
+        +int PublicacaoId
+        +int Ordem
+        +DateTime CriadoEm
+    }
+
+    class FonteFinanciadora {
+        +int FonteId
+        +string Nome
+        +string Sigla
+        +string Tipo
+        +string SiteUrl
+        +string NomeExibicao
+        +Validar()
+    }
+
+    class Financiamento {
+        +int FinanciamentoId
+        +int ProjetoId
+        +int FonteId
+        +string Descricao
+        +string NumeroProcesso
+        +decimal Valor
+        +DateTime DataInicio
+        +DateTime DataFim
+        +string Moeda
+        +string ValorFormatado
+        +bool Vigente
+        +Validar()
+    }
+
+    class Usuario {
+        +int UsuarioId
+        +string Login
+        +string NomeCompleto
+        +string Email
+        +string SenhaHash
+        +int PerfilId
+        +int PesquisadorId
+        +bool Ativo
+        +bool EhAdministrador
+        +bool EhCoordenador
+        +bool PodeGerenciarProjetos
+    }
+
+    class PerfilAcesso {
+        +int PerfilId
+        +string Nome
+        +string Descricao
+    }
+
+    class LogAuditoria {
+        +long LogId
+        +int UsuarioId
+        +string Acao
+        +string Entidade
+        +int EntidadeId
+        +string Detalhe
+        +DateTime DataHora
+    }
+
+    class ProjetoService {
+        +Listar()
+        +ObterDetalhe()
+        +Salvar()
+        +Excluir()
+        +AdicionarParticipante()
+        +VincularEstudante()
+        +PodeGerenciar()
+    }
+
+    class EstudanteService {
+        +Criar()
+        +Atualizar()
+        +Concluir()
+        +DefinirOrientadorPrincipal()
+        +AdicionarCoorientacaoInterna()
+        +EncerrarOrientacao()
+    }
+
+    class PublicacaoService {
+        +Salvar()
+        +Excluir()
+        +AdicionarDestaque()
+        +RemoverDestaque()
+        +ListarGerenciaveis()
+    }
+
+    class FinanciamentoService {
+        +Salvar()
+        +Excluir()
+        +TotalDoProjeto()
+        +SalvarFonte()
+        +ExcluirFonte()
+    }
+
+    class AuthService {
+        +Autenticar()
+        +AlterarSenha()
+    }
+
+    Pessoa <|-- Pesquisador
+    Pessoa <|-- Estudante
+
+    Pesquisador "1" --> "0..*" Projeto : coordena
+    Pesquisador "1" --> "0..*" ParticipacaoProjeto : participa
+    Pesquisador "1" --> "0..*" Orientacao : orienta
+    Pesquisador "1" --> "0..*" PublicacaoAutor : assina
+    Pesquisador "1" --> "0..*" DestaquePublicacao : destaca
+    Pesquisador "1" --> "0..1" Usuario : acesso
+
+    Estudante "1" --> "0..*" Orientacao : possui
+    Estudante "1" --> "0..*" EstudanteProjeto : vincula-se
+
+    Projeto "1" --> "0..*" ParticipacaoProjeto : reúne
+    Projeto "1" --> "0..*" EstudanteProjeto : acolhe
+    Projeto "1" --> "0..*" Financiamento : recebe
+    Projeto "1" --> "0..*" Publicacao : origina
+
+    Publicacao "1" --> "1..*" PublicacaoAutor : compõe
+    Publicacao "1" --> "0..*" DestaquePublicacao : pode ser destacada
+    FonteFinanciadora "1" --> "0..*" Financiamento : financia
+
+    PerfilAcesso "1" --> "0..*" Usuario : autoriza
+    Usuario "1" --> "0..*" LogAuditoria : gera
+    Usuario --> UsuarioSessao : projeta
+
+    ProjetoService ..> Projeto : gerencia
+    ProjetoService ..> ParticipacaoProjeto : gerencia
+    ProjetoService ..> EstudanteProjeto : gerencia
+    EstudanteService ..> Orientacao : gerencia
+    PublicacaoService ..> DestaquePublicacao : gerencia
+    FinanciamentoService ..> FonteFinanciadora : gerencia
+    AuthService ..> Usuario : valida
